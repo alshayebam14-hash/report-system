@@ -71,8 +71,8 @@
         <h2>نظام رفع التقارير</h2>
         <form id="reportForm">
             <div class="form-group">
-                <label for="adminId">ايدي المسؤول:</label>
-                <input type="text" id="adminId" required placeholder="مثال: <@2342342>">
+                <label for="adminId">كوبي يوزر المسؤول:</label>
+                <input type="text" id="adminId" required placeholder="مثال: 12312313324">
             </div>
 
             <div class="form-group">
@@ -111,7 +111,7 @@
 
             const formData = new FormData();
             
-            let messageContent = `🚨 **تقرير جديد تم رفعه!**\n👤 **ايدي المسؤول:** <@${adminId}>\n📄 **التفاصيل:**\n${details}`;
+            let messageContent = `🚨 **تقرير جديد تم رفعه!**\n👤 **كوبي يوزر المسؤول:** <@${adminId}>\n📄 **التفاصيل:**\n${details}`;
             
             if (videoUrl) {
                 messageContent += `\n🎬 **رابط الفيديو:** ${videoUrl}`;
