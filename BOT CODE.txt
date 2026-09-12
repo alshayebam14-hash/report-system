@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رفع التقارير العسكرية</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: Tahoma, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #2b2b2b;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            width: 400px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #5865F2;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        input[type="text"], textarea, input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #1e1e1e;
+            color: #fff;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #5865F2;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #4752C4;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>نظام رفع التقارير</h2>
+        <form id="reportForm">
+            <div class="form-group">
+                <label for="adminId">ايدي المسؤول:</label>
+                <input type="text" id="adminId" required placeholder="مثال: 123456789123456789">
+            </div>
+
+            <div class="form-group">
+                <label for="reportDetails">تفاصيل التقرير:</label>
+                <textarea id="reportDetails" required placeholder="اكتب تفاصيل التقرير هنا..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="reportFile">رفع ملف (صورة أو فيديو):</label>
+                <input type="file" id="reportFile" accept="image/*,video/*">
+            </div>
+
+            <button type="submit">رفع التقرير</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('reportForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const adminId = document.getElementById('adminId').value;
+            const details = document.getElementById('reportDetails').value;
+            const fileInput = document.getElementById('reportFile').files[0];
+
+            // كمرحلة أولى للتأكد، نجرب نطبع البيانات بالكونسول لين ما نربط البوت
+            console.log("إيدي المسؤول:", adminId);
+            console.log("التفاصيل:", details);
+            console.log("الملف:", fileInput ? fileInput.name : "لا يوجد ملف");
+
+            alert('تم تجهيز البيانات، بانتظار ربط البوت!');
+        });
+    </script>
+
+</body>
+</html>
