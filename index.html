@@ -72,7 +72,7 @@
         <form id="reportForm">
             <div class="form-group">
                 <label for="adminId">ايدي المسؤول:</label>
-                <input type="text" id="adminId" required placeholder="مثال: 123456789123456789">
+                <input type="text" id="adminId" required placeholder="مثال: 773">
             </div>
 
             <div class="form-group">
@@ -85,24 +85,57 @@
                 <input type="file" id="reportFile" accept="image/*,video/*">
             </div>
 
-            <button type="submit">رفع التقرير</button>
+            <button type="submit" id="submitBtn">رفع التقرير</button>
         </form>
     </div>
 
     <script>
-        document.getElementById('reportForm').addEventListener('submit', function(e) {
+        // ضع رابط الـ Webhook الخاص بك هنا بين العلامتين
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1548139936127914095/EmhL6isWAj_fJlTPbRdd6E3RFy1fjzECrmb4Vt1_Uh3a3sEokkfH8Tor-FJ-5OGucSs0";
+
+        document.getElementById('reportForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const adminId = document.getElementById('adminId').value;
             const details = document.getElementById('reportDetails').value;
             const fileInput = document.getElementById('reportFile').files[0];
+            const submitBtn = document.getElementById('submitBtn');
 
-            // كمرحلة أولى للتأكد، نجرب نطبع البيانات بالكونسول لين ما نربط البوت
-            console.log("إيدي المسؤول:", adminId);
-            console.log("التفاصيل:", details);
-            console.log("الملف:", fileInput ? fileInput.name : "لا يوجد ملف");
+            submitBtn.disabled = true;
+            submitBtn.textContent = "جاري الإرسال...";
 
-            alert('تم تجهيز البيانات، بانتظار ربط البوت!');
+            const formData = new FormData();
+            
+            // تصميم رسالة ديسورد
+            const payload = {
+                content: `🚨 **تقرير جديد تم رفعه!**\n👤 **ايدي المسؤول:** <@${adminId}>\n📄 **التفاصيل:**\n${details}`
+            };
+
+            formData.append('payload_json', JSON.stringify(payload));
+
+            if (fileInput) {
+                formData.append('file', fileInput);
+            }
+
+            try {
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    alert('تم رفع التقرير وإرساله إلى ديسورد بنجاح!');
+                    document.getElementById('reportForm').reset();
+                } else {
+                    alert('حدث خطأ أثناء إرسال التقرير، تأكد من صحة الرابط.');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('فشل الاتصال بالديسورد.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "رفع التقرير";
+            }
         });
     </script>
 
